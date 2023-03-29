@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>List dan Pilih</title>
+  </head>
+  <body>
+	<header>
+		<div>
+			<img src="images/crash.jpg" alt="Foto">
+		</div>
+		<div>
+			<h2>Nama : Paskasius Yosi Danasmoro</h2>
+			<h2>Nim : 215314083</h2>
+			<br>
+		</div>
+	</header>
+	<h1>List dan Pilih</h1>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<p>
+		Nama	:	<input type="text" id="inputNama" placeholder="Masukkan nama" />
+	</p>
+    <p>
+      Jumlah	:	<input type="number" id="inputJumlah" placeholder="Masukkan jumlah" />
+    </p>
+	<button onclick="tes()">Submit</button>
+	<div id="demo"></div>
+    <div id="group1"></div>
+    <div id="Hasil"></div>
+
+	<script>
+		function tes() {
+		  // mengambil input value
+		  const banyak = document.getElementById("inputJumlah").value;
+		  const Nama = document.getElementById("inputNama").value;
+		  // mengambil elemen demo dan group1 
+		  const demo = document.getElementById("demo");
+		  const group1 = document.getElementById("group1");
+	  
+		  // mengatasi error jika data kosong
+		  if (!banyak) {
+			alert("Jumlah harus diisi!");
+			return;
+		  }
+	  
+		  // menampilkan kolom input nama
+		  let nameInputs = "";
+		  for (let i = 0; i < banyak; i++) {
+			nameInputs += `<p style="font-size: medium; position: relative; left: 20%;">Nama ke-${i + 1}:<input type="input" placeholder="<Teks Pilihan ${i + 1}>" id="nama${i}" style="position: relative;left: 14%;"/></p>`;
+		  }
+		  demo.innerHTML += nameInputs;
+	  
+		  // menampilkan tombol OK untuk kolom input nama
+		  demo.innerHTML += '<button id="btnNameOK" style="position: relative;top: 50%;left: 45%;">OK</button>';
+	  
+		  document.getElementById("btnNameOK").addEventListener("click", function() {
+			const kumpulannama = [];
+			for (let i = 0; i < banyak; i++) {
+			  const input = document.getElementById(`nama${i}`);
+			  kumpulannama.push(input.value);
+			}
+	  
+			// menampilkan input nama sebagai tombol radio
+			let radioInputs = "";
+			for (let i = 0; i < banyak; i++) {
+			  radioInputs += `<p style="font-size: medium; position: relative; left: 20%;">Nama ke-${i + 1}:<input type="radio" name="group1" value="${kumpulannama[i]}">${kumpulannama[i]}</input></p>`;
+			}
+			group1.innerHTML = radioInputs;
+	  
+			// menampilkan tombol OK untuk tombol radio
+			group1.innerHTML += '<button id="btnRadioOK" style="position: relative;top: 50%;left: 45%;">OK</button>';
+	  
+			document.getElementById("btnRadioOK").addEventListener("click", function() {
+			  const selectedSize = document.querySelector('input[name="group1"]:checked');
+			  Hasil.innerHTML += `Halo, nama saya ${Nama}, saya mempunyai sejumlah ${banyak} pilihan yaitu ${kumpulannama} dan saya memilih ${selectedSize.value}`;
+			});
+		  });
+		}
+	  </script>
+	  </body>
+	  </html>
